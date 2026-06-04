@@ -7,24 +7,30 @@ from logica.models import Persona
 
 def primer_endpoint(request):
     body = {
-        'mensaje': 'Hola mundo!'
+        'mensaje': 'Hola mundo!'*5
     }
 
     return JsonResponse(body)
 
 def get_persona(request):
-    personas = Persona.objects.all().first()
+    personas = Persona.objects.all()
 
-    persona = {
-        'nombre': personas.nombre,
-        'edad': personas.edad,
-        'casado': personas.casado
-    }
+    personas_list = []
+
+    for p in personas:
+
+        persona = {
+            'nombre': p.nombre,
+            'edad': p.edad,
+            'casado': p.casado
+        }
+
+        personas_list.append(persona)
 
     # print(personas)
 
     body = {
-        'personas': [persona] * 8
+        'personas': personas_list
     }
 
     return JsonResponse(body)
