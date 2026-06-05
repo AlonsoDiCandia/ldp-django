@@ -15,4 +15,4 @@ class Tortuga(models.Model):
     velocidad = models.IntegerField()
     fuerza = models.IntegerField()
     def __str__(self):
-        return self.nombre
+        return f"{self.nombre}_{self.id}"

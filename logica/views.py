@@ -58,6 +58,30 @@ def create_tortuga(request):
     }
 
     return JsonResponse(t)
-# def get_tortugas(request):
-#     tortugas = Tortuga.objects.all()
-#     tortugas_list = 
+
+def get_tortugas(request, velocidad, fuerza):
+    tortugas_v = Tortuga.objects.filter(velocidad__gte=velocidad)
+    tortugas_f = Tortuga.objects.filter(fuerza__gte=fuerza)
+
+    tortugas = set(list(tortugas_v) + list(tortugas_f))
+
+    tortugas_list = []
+
+    for tortuga in tortugas:
+        t = {
+            "nombre": tortuga.nombre,
+            "velocidad": tortuga.velocidad,
+            "fuerza": tortuga.fuerza,
+        }
+
+        tortugas_list.append(t)
+    
+
+    return JsonResponse({
+        "count": len(tortugas_list),
+        "tortugas": tortugas_list
+    })
+
+
+
+
