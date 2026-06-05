@@ -9,3 +9,10 @@ class Persona(models.Model):
 
     def __str__(self):
         return self.nombre
+    
+class Tortuga(models.Model):
+    nombre = models.CharField(max_length=50)
+    velocidad = models.IntegerField()
+    fuerza = models.IntegerField()
+    def __str__(self):
+        return self.nombre

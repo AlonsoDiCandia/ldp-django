@@ -1,7 +1,9 @@
+from random import randint
+
 from django.shortcuts import render
 from django.http import JsonResponse
 
-from logica.models import Persona
+from logica.models import Persona, Tortuga
 
 # Create your views here.
 
@@ -12,7 +14,7 @@ def primer_endpoint(request):
 
     return JsonResponse(body)
 
-def get_persona(request):
+def get_personas(request):
     personas = Persona.objects.all()
 
     personas_list = []
@@ -30,7 +32,32 @@ def get_persona(request):
     # print(personas)
 
     body = {
-        'personas': personas_list
+        'personas': personas_list * 2
     }
 
     return JsonResponse(body)
+
+
+def create_tortuga(request):
+    velocidad = randint(0,100)
+    fuerza = randint(0,100)
+    nombre = f"Tortuga_{velocidad}_{fuerza}"
+
+    tortuga, created = Tortuga.objects.get_or_create(
+        nombre = nombre,
+        velocidad = velocidad,
+        fuerza = fuerza,
+    )
+
+    t = {
+        "nombre": tortuga.nombre,
+        "velocidad": tortuga.velocidad,
+        "fuerza": tortuga.fuerza,
+        "created": created
+
+    }
+
+    return JsonResponse(t)
+# def get_tortugas(request):
+#     tortugas = Tortuga.objects.all()
+#     tortugas_list = 
