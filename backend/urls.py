@@ -17,14 +17,15 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
-from logica.views import primer_endpoint, get_personas, create_tortuga, get_tortugas, get_tortugas_by_id
+from logica.views import primer_endpoint, get_personas, create_tortuga, get_tortugas, get_tortugas_by_velocidad_and_fuerza,  get_tortugas_by_id, get_pokemon
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/primero', primer_endpoint),
     path('api/personas', get_personas),
     path('api/create_tortuga', create_tortuga),
-    path('api/get_tortugas/<int:velocidad>/<int:fuerza>', get_tortugas),
-    path('api/get_tortugas/<int:id>', get_tortugas_by_id)
-
+    path('api/get_tortugas', get_tortugas),
+    path('api/get_tortugas/<int:velocidad>/<int:fuerza>', get_tortugas_by_velocidad_and_fuerza),
+    path('api/get_tortugas/<int:id>', get_tortugas_by_id),
+    path('api/get_pokemons', get_pokemon)
 ]
